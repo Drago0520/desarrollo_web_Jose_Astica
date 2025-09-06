@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Listado de Avisos de Adopción</title>
+  <link rel="stylesheet" href="../css/listado.css">
+</head>
+<body>
+  <h1>Listado de Avisos de Adopción</h1>
+
+  <!-- Tabla de avisos -->
+  <table id="tabla-avisos">
+    <thead>
+      <tr>
+        <th>Fecha Publicación</th>
+        <th>Fecha Entrega</th>
+        <th>Comuna</th>
+        <th>Sector</th>
+        <th>Cantidad / Tipo / Edad</th>
+        <th>Nombre Contacto</th>
+        <th>Total Fotos</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr data-id="1"><td>2025-09-01</td>
+        <td>2025-09-05</td>
+        <td>Santiago</td>
+        <td>Centro</td>
+        <td>1 perro, 6 meses</td>
+        <td>Frederick Fazbearington</td>
+        <td>2</td></tr>
+      <tr data-id="2">
+        <td>2025-08-28</td>
+        <td>2025-09-04</td>
+        <td>Providencia</td>
+        <td>Bustamante</td>
+        <td>1 gatos, 3 meses</td>
+        <td>Chayanne</td>
+        <td>2</td></tr>
+      <tr data-id="3">
+        <td>2025-08-25</td>
+        <td>2025-09-02</td>
+        <td>Ñuñoa</td>
+        <td>Irarrazabal</td>
+        <td>1 perro, 2 años</td>
+        <td>Hideo Kojima</td>
+        <td>1</td></tr>
+      <tr data-id="4">
+        <td>2025-09-02</td>
+        <td>2025-09-07</td>
+        <td>La Florida</td>
+        <td>Trinidad</td>
+        <td>3 gatos, 1 año</td>
+        <td>Jorge San Martin</td>
+        <td>1</td></tr>
+      <tr data-id="5">
+        <td>2025-08-30</td>
+        <td>2025-09-03</td><td>Maipú</td>
+        <td>Pajaritos</td>
+        <td>1 perro, 8 meses</td>
+        <td>Sakurajima Mai</td>
+        <td>1</td></tr>
+    </tbody>
+  </table>
+
+  
+  <div id="detalle">
+    <h2>Detalle del Aviso</h2>
+    <p id="detalle-info"></p>
+    <div id="detalle-fotos"></div>
+    <br>
+    <button onclick="mostrarTabla()">Volver al listado</button>
+    <button onclick="window.location.href='index.html'">Volver a la pagina principal</button>
+  </div>
+
+
+
+  <script src="../js/listado.js"></script>
+</body>
+</html>

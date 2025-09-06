@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+	<title>Pagina Principal</title>
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    
+    
+</head>
+<body>
+    <h1>Ultimos 5 avisos</h1>
+    <div class="table-container">
+        <table>
+        <tr>
+        <th>Fecha de publicacion</th>
+        <th>Comuna</th>
+        <th>Sector</th>
+        <th>Cantidad Tipo Edad</th>
+        <th>Foto</th>
+        </tr>
+        <tr>
+        <td>2025-08-18 12:00</td>
+        <td>Santiago</td>
+        <td>Beauchef 850, terraza</td>
+        <td>1 gato 8 meses</td>
+        <td><img src="../imagenes/Maxwell.png" alt="GatoMax" width="150" height="150"></td>
+        </tr>
+        <tr>
+        <td>2025-08-17
+    19:00</td>
+        <td>Ñuñoa </td>
+        <td>Plaza</td>
+        <td>1 gato 2 meses</td>
+        <td><img src="../imagenes/PanaMiguel.png" alt="GatoMiguel" width="150" height="150"></td>
+        </tr>
+        <tr>
+        <td>2025-08-30 12:32</td>
+        <td>Concepcion</td>
+        <td>Pizzeria Fazbear</td>
+        <td>1 Oso 87 meses</td>
+        <td><img src="../imagenes/nicodios.png" alt="GatoMax" width="150" height="150"></td>
+        </tr>
+        <tr>
+        <td>2025-06-15 14:00</td>
+        <td>Rancagua</td>
+        <td>Plaza</td>
+        <td>3 perros 2 meses</td>
+        <td><img src="../imagenes/Perros.png" alt="GatoMax" width="150" height="150"></td>
+        </tr>
+        <tr>
+        <td>2025-09-30 17:00</td>
+        <td>Santiago</td>
+        <td>ParqueO higgins</td>
+        <td>2 gatos 1 meses</td>
+        <td><img src="../imagenes/GATOSLUL.png" alt="GatoMax" width="150" height="150"></td>
+        </tr>
+        
+        </table>
+    </div>
+
+    
+
+    <div class="main-container">
+        <div id="val-box" hidden>
+            <h2 id="val-msg" hidden>Mensajes de validación</h2>
+
+            <ul id="val-list"></ul>
+        </div>
+        <form name="myForm" method="post" enctype="multipart/form-data">
+            <h1>Que quiere hacer?</h1>            
+            
+            <button id="btn-aviso" type="button" onclick="window.location.href='aviso.html'">
+                Agregar aviso de adopcion
+            </button>
+
+            <button id="btn-listado" type="button" onclick="window.location.href='listado.html'">
+                Ver listado de adopciones
+            </button>
+
+            <button id="btn-estadistica" type="button" onclick="window.location.href='estadistica.html'">
+                Estadisticas
+            </button>
+            
+        </form>
+    </div>
+    
+</body>
+</html>
