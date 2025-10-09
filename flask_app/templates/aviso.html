@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Validation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Agregar Aviso de Adopcion</h1>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div id="flash-box">
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    {% if errores %}
+        <div id="val-box">
+            <h2>Campos invalidos</h2>
+            <ul>
+                {% for err in errores %}
+                    <li>{{ err }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form name="myForm" method="post" action="{{ url_for('agregar_aviso') }}" enctype="multipart/form-data">
+        <label>Nombre:</label>
+        <input type="text" name="nombre" required minlength="4" value="{{ request.form.get('nombre', '') }}"><br>
+
+        <label>Email:</label>
+        <input type="email" name="email" required value="{{ request.form.get('email', '') }}"><br>
+
+        <label>Celular:</label>
+        <input type="text" name="celular" placeholder="+56912345678" value="{{ request.form.get('celular', '') }}"><br>
+
+        <label>Region:</label>
+        <select id="select-region" name="region_id" required>
+            <option value="">Seleccione una región</option>
+            {% for region in regiones %}
+                <option value="{{ region.id }}" {% if request.form.get('region_id')|int == region.id %}selected{% endif %}>
+                    {{ region.nombre }}
+                </option>
+            {% endfor %}
+        </select><br>
+
+        <label>Comuna:</label>
+        <select id="select-comuna" name="comuna_id" required>
+            <option value="">Seleccione una comuna</option>
+        </select><br>
+
+        <label>Sector:</label>
+        <input type="text" name="sector" value="{{ request.form.get('sector', '') }}"><br>
+
+        <label>Tipo:</label>
+        <select id="select-tipo" name="tipo" required>
+            <option value="">Seleccione el tipo</option>
+            {% for tipo in tipos_animales %}
+                <option value="{{ tipo }}" {% if request.form.get('tipo') == tipo %}selected{% endif %}>
+                    {{ tipo|capitalize }}
+                </option>
+            {% endfor %}
+        </select><br>
+
+        <label>Cantidad:</label>
+        <input type="number" name="cantidad" required min="1" value="{{ request.form.get('cantidad', '') }}"><br>
+
+        <label>Edad:</label>
+        <input type="number" name="edad" required min="0" value="{{ request.form.get('edad', '') }}"><br>
+
+        <label>Unidad:</label>
+        <select id="select-unidad" name="unidad" required>
+            <option value="">Seleccione la unidad</option>
+            {% for valor, texto in unidades_medida %}
+                <option value="{{ valor }}" {% if request.form.get('unidad') == valor %}selected{% endif %}>
+                    {{ texto }}
+                </option>
+            {% endfor %}
+        </select><br>
+
+        <input type="datetime-local" id="entrega" name="fecha_entrega" required value="{{ request.form.get('fecha_entrega', '') }}"><br>
+
+        <label>Descripcion:</label>
+        <textarea name="descripcion">{{ request.form.get('descripcion', '') }}</textarea><br>
+
+        <div id="file-container">
+        <label>Fotos (min 1, max 5):</label><br>
+        <input type="file" name="files" accept="image/*" class="file-input"> 
+        </div>
+        <button id="add-photo-btn" type="button">Agregar otra foto</button><br><br>
+
+        <button id="submit-btn" type="submit">Agregar este aviso de adopcion</button>
+    </form>
+
+    <a href="{{ url_for('index') }}" class="btn">Volver</a>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const regionSelect = document.getElementById('select-region');
+            const comunaSelect = document.getElementById('select-comuna');
+            const fileContainer = document.getElementById('file-container');
+            const addPhotoBtn = document.getElementById('add-photo-btn');
+            const MAX_FILES = 5;
+
+           
+            addPhotoBtn.addEventListener('click', function() {
+                const currentFiles = fileContainer.querySelectorAll('.file-input').length;
+                if (currentFiles < MAX_FILES) {
+                    const newInput = document.createElement('input');
+                    newInput.type = 'file';
+                    newInput.name = 'files';
+                    newInput.accept = 'image/*';
+                    newInput.className = 'file-input';
+                    newInput.style.marginTop = '10px';
+                    fileContainer.appendChild(document.createElement('br')); 
+                    fileContainer.appendChild(newInput);
+                }
+                
+              
+                if (currentFiles + 1 >= MAX_FILES) {
+                    addPhotoBtn.disabled = true;
+                }
+            });
+
+          
+            function loadComunas(regionId, selectedComunaId = null) {
+                comunaSelect.innerHTML = '<option value="">Cargando comunas...</option>';
+                
+                if (!regionId) {
+                    comunaSelect.innerHTML = '<option value="">Seleccione una región primero</option>';
+                    return;
+                }
+
+                
+                fetch(`{{ url_for('comunas_por_region', region_id=0) }}`.replace('0', regionId))
+                    .then(response => response.json())
+                    .then(comunas => {
+                        comunaSelect.innerHTML = '<option value="">Seleccione una comuna</option>';
+                        comunas.forEach(comuna => {
+                            const option = document.createElement('option');
+                            option.value = comuna.id;
+                            option.textContent = comuna.nombre;
+                            if (selectedComunaId && comuna.id == selectedComunaId) {
+                                option.selected = true;
+                            }
+                            comunaSelect.appendChild(option);
+                        });
+                        
+                        if (comunas.length === 0) {
+                             comunaSelect.innerHTML = '<option value="">No hay comunas disponibles</option>';
+                        }
+
+                    })
+                    .catch(error => {
+                        console.error('Error cargando comunas:', error);
+                        comunaSelect.innerHTML = '<option value="">Error al cargar comunas</option>';
+                    });
+            }
+
+            
+            regionSelect.addEventListener('change', function() {
+                loadComunas(this.value);
+            });
+            
+            
+            const initialRegionId = regionSelect.value;
+            const initialComunaId = "{{ request.form.get('comuna_id', '') }}";
+
+            if (initialRegionId) {
+                loadComunas(initialRegionId, initialComunaId);
+            }
+            
+            
+            const fechaEntregaInput = document.getElementById('entrega');
+            const now = new Date();
+           
+            const minDate = new Date(now.getTime() - (now.getTimezoneOffset() * 60000)).toISOString().slice(0, 16);
+            fechaEntregaInput.setAttribute('min', minDate);
+        });
+    </script>
+</body>
+</html>
