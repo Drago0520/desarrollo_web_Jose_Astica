@@ -1,0 +1,5 @@
+{
+    "get_last_avisos": "SELECT * FROM aviso_adopcion ORDER BY fecha_ingreso DESC LIMIT %s;",
+    "create_aviso": "INSERT INTO aviso_adopcion (comuna_id, sector, nombre, email, celular, tipo, cantidad, edad, unidad_medida, fecha_entrega, descripcion, fecha_ingreso) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);",
+    "create_foto": "INSERT INTO foto (ruta_archivo, nombre_archivo, aviso_id) VALUES (%s, %s, %s);"
+}

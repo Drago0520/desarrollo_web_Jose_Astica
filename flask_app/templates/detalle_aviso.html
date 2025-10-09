@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle de Aviso: {{ aviso.nombre }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <style>
+        .detalle-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        .foto-galeria img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+        }
+        .contacto-box {
+            border-top: 2px solid #333;
+            padding-top: 15px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="detalle-container">
+        <h1>Detalle de Aviso: {{ aviso.nombre }}</h1>
+
+        ---
+
+        <h2>Información del Animal</h2>
+        
+        <p><strong>Tipo de Animal:</strong> {{ aviso.tipo|capitalize }}</p>
+        <p>
+            <strong>Cantidad:</strong> {{ aviso.cantidad }} 
+            {% if aviso.cantidad > 1 %}animales{% else %}animal{% endif %}
+        </p>
+        <p>
+            <strong>Edad Estimada:</strong> {{ aviso.edad }} 
+            {{ 'años' if aviso.unidad_medida == 'a' else 'meses' }}
+        </p>
+        <p><strong>Descripción:</strong> {{ aviso.descripcion }}</p>
+
+        ---
+
+        <h2>Ubicación y Logística</h2>
+        
+        {% if aviso.comuna %}
+            <p><strong>Región:</strong> {{ aviso.comuna.region.nombre if aviso.comuna.region else 'N/A' }}</p>
+            <p><strong>Comuna:</strong> {{ aviso.comuna.nombre }}</p>
+        {% else %}
+            <p>Ubicación no especificada.</p>
+        {% endif %}
+        
+        <p><strong>Sector Específico:</strong> {{ aviso.sector or 'No especificado' }}</p>
+        <p><strong>Fecha Límite de Entrega:</strong> {{ aviso.fecha_entrega.strftime('%d-%m-%Y a las %H:%M') }}</p>
+        <p><strong>Fecha de Publicación:</strong> {{ aviso.fecha_ingreso.strftime('%d-%m-%Y') }}</p>
+
+        ---
+
+        <h2>Galería de Fotos</h2>
+        <div class="foto-galeria">
+            {% if aviso.fotos %}
+                {% for foto in aviso.fotos %}
+                    <img src="{{ url_for('static', filename=foto.ruta_archivo) }}" alt="Foto de {{ aviso.nombre }}">
+                {% endfor %}
+            {% else %}
+                <p>No hay fotos disponibles para este aviso.</p>
+            {% endif %}
+        </div>
+
+        ---
+
+        <div class="contacto-box">
+            <h2>Información de Contacto</h2>
+            <p><strong>Nombre del Contacto:</strong> {{ aviso.nombre }}</p>
+            <p><strong>Email:</strong> {{ aviso.email }}</p>
+            <p><strong>Celular:</strong> {{ aviso.celular or 'No disponible' }}</p>
+        </div>
+        
+        <br>
+        <a href="{{ url_for('listado') }}" class="btn">Volver al Listado</a>
+
+    </div>
+</body>
+</html>
