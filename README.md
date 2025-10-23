@@ -1,0 +1,1 @@
+Se considero que no era necesario mantener bien la estetica y se priorizo el uso de la aplicacion, deberian estar todos los archivos dentro de flask app y lo que cambio para esta tarea 3 es solo el agregado que se ve en el comitt nada mas
