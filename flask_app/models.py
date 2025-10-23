@@ -33,9 +33,19 @@ class Aviso(db.Model):
     descripcion = db.Column(db.Text(500))
     fotos = db.relationship("Foto", backref="aviso", lazy=True, cascade="all, delete-orphan")
 
+    comentarios = db.relationship("Comentario", backref="aviso", lazy=True, cascade="all, delete-orphan")
+
 class Foto(db.Model):
     __tablename__ = "foto"
     id = db.Column(db.Integer, primary_key=True)
     ruta_archivo = db.Column(db.String(300), nullable=False)
     nombre_archivo = db.Column(db.String(300), nullable=False)
+    aviso_id = db.Column(db.Integer, db.ForeignKey("aviso_adopcion.id"), nullable=False)
+#nuevo
+class Comentario(db.Model):
+    __tablename__ = "comentario"
+    id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(80), nullable=False)
+    texto = db.Column(db.String(300), nullable=False)
+    fecha = db.Column(db.DateTime, default=datetime.utcnow, nullable=False) 
     aviso_id = db.Column(db.Integer, db.ForeignKey("aviso_adopcion.id"), nullable=False)
