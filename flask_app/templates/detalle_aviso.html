@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle de Aviso: {{ aviso.nombre }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cometarios.css') }}">
+    
+</head>
+<body>
+    <div class="detalle-container">
+        <h1>Detalle de Aviso: {{ aviso.nombre }}</h1>
+
+        {# Mensajes Flash de validación #}
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for message in messages %}
+                        <div class="flash-message {% if 'error' in message|lower %}error{% else %}success{% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <hr>
+
+        <h2>Informacion del Animal</h2>
+        
+        <p><strong>Tipo de Animal:</strong> {{ aviso.tipo|capitalize }}</p>
+        <p>
+            <strong>Cantidad:</strong> {{ aviso.cantidad }} 
+            {% if aviso.cantidad > 1 %}animales{% else %}animal{% endif %}
+        </p>
+        <p>
+            <strong>Edad Estimada:</strong> {{ aviso.edad }} 
+            {{ 'años' if aviso.unidad_medida == 'a' else 'meses' }}
+        </p>
+        <p><strong>Descripcion:</strong> {{ aviso.descripcion }}</p>
+
+        <hr>
+
+        <h2>Ubicacion y Logistica</h2>
+        
+        {% if aviso.comuna %}
+            <p><strong>Región:</strong> {{ aviso.comuna.region.nombre if aviso.comuna.region else 'N/A' }}</p>
+            <p><strong>Comuna:</strong> {{ aviso.comuna.nombre }}</p>
+        {% else %}
+            <p>Ubicacion no especificada.</p>
+        {% endif %}
+        
+        <p><strong>Sector Especifico:</strong> {{ aviso.sector or 'No especificado' }}</p>
+        <p><strong>Fecha Limite de Entrega:</strong> {{ aviso.fecha_entrega.strftime('%d-%m-%Y a las %H:%M') }}</p>
+        <p><strong>Fecha de Publicacion:</strong> {{ aviso.fecha_ingreso.strftime('%d-%m-%Y') }}</p>
+
+        <hr>
+
+        <h2>Galeria de Fotos</h2>
+        <div class="foto-galeria">
+            {% if aviso.fotos %}
+                {% for foto in aviso.fotos %}
+                    <img src="{{ url_for('static', filename=foto.ruta_archivo) }}" alt="Foto de {{ aviso.nombre }}">
+                {% endfor %}
+            {% else %}
+                <p>No hay fotos disponibles para este aviso.</p>
+            {% endif %}
+        </div>
+
+        <hr>
+
+        <div class="contacto-box">
+            <h2>Informacion de Contacto</h2>
+            <p><strong>Nombre del Contacto:</strong> {{ aviso.nombre }}</p>
+            <p><strong>Email:</strong> {{ aviso.email }}</p>
+            <p><strong>Celular:</strong> {{ aviso.celular or 'No disponible' }}</p>
+        </div>
+        
+        <br>
+        <a href="{{ url_for('listado') }}" class="btn">Volver al Listado</a>
+
+
+        <div class="seccion-comentarios">
+            <h2>Ingresar Comentario</h2>
+            
+            <form action="{{ url_for('guardar_comentario', aviso_id=aviso.id) }}" method="POST" class="form-comentario">
+                <label for="nombre_comentario">Tu Nombre:</label>
+                <input type="text" id="nombre_comentario" name="nombre_comentario" required minlength="3" maxlength="80">
+
+                <label for="texto_comentario">Comentario:</label>
+                <textarea id="texto_comentario" name="texto_comentario" required minlength="5" maxlength="300"></textarea>
+
+                <button type="submit">Publicar Comentario</button>
+            </form>
+
+            <hr>
+
+            <h3>Comentarios ({{ aviso.comentarios|length }})</h3>
+            
+            {% if comentarios %}
+                {% for comentario in comentarios %}
+                    <div class="comentario-item">
+                        <strong>{{ comentario.nombre }}</strong>
+                        <p>{{ comentario.texto }}</p>
+                        <small>{{ comentario.fecha.strftime('%d-%m-%Y %H:%M') }}</small>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>Comenta aqui</p>
+            {% endif %}
+        </div>
+        </div>
+</body>
+</html>

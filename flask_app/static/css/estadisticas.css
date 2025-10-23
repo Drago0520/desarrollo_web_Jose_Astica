@@ -1,0 +1,54 @@
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+}
+h1 {
+    margin-bottom: 30px;
+}
+.grafico {
+    margin: 20px auto;
+    max-width: 600px;
+}
+img {
+    width: 100%;
+    height: auto;
+    border: 1px solid #ccc;
+}
+.volver {
+    display: block;
+    margin-top: 40px;
+    font-size: 18px;
+    text-decoration: none;
+    color: #007BFF;
+}
+.volver:hover {
+    text-decoration: underline;
+}
+
+main.container {
+    max-width: 900px; 
+    margin: 0 auto;   
+    text-align: left; 
+}
+
+
+main.container section {
+    margin-bottom: 40px;
+    padding: 20px;
+    border: 1px solid #eee;
+    background-color: #fff;
+    border-radius: 8px;
+}
+.boton-volver {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+}
+.boton-volver:hover {
+    background-color: #45a049;
+}

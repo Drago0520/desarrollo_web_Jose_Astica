@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Portada - Adopciones</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+</head>
+<body>
+    <h1>Pagina Principal</h1>
+
+    <h2>Ultimos 5 avisos</h2>
+    <div class="table-container">
+    <table>
+        <tr>
+            <th>Fecha publicacion</th>
+            <th>Comuna</th>
+            <th>Sector</th>
+            <th>Cantidad Tipo Edad</th>
+            <th>Foto</th>
+        </tr>
+
+        {% if ultimos %}
+            {# Cambiamos 'aviso' a 'item_data' para que sea más claro #}
+            {% for item_data in ultimos %}
+                <tr>
+                    {# 1. FECHA: Accede a la fecha del objeto 'aviso' que está dentro del diccionario 'item_data' #}
+                    <td>{{ item_data.aviso.fecha_ingreso.strftime('%Y-%m-%d %H:%M') }}</td> 
+                    
+                    {# 2. COMUNA: Usa el nombre de la comuna pre-calculado #}
+                    <td>{{ item_data.comuna_nombre }}</td>
+                    
+                    {# 3. SECTOR: Accede al sector del objeto 'aviso' #}
+                    <td>{{ item_data.aviso.sector or '-' }}</td> 
+                    
+                    {# 4. CANTIDAD/TIPO/EDAD: Accede al objeto 'aviso' #}
+                    <td>
+                        {{ item_data.aviso.cantidad }} 
+                        {{ item_data.aviso.tipo }} 
+                        {{ item_data.aviso.edad }} 
+                        {{ 'años' if item_data.aviso.unidad_medida == 'a' else 'meses' }}
+                    </td>
+                    
+                    {# 5. FOTO: Accede a la lista de fotos del objeto 'aviso' #}
+                    <td>
+                        {% if item_data.aviso.fotos %}
+                            {# La ruta de la foto también debe usar el objeto 'aviso' dentro #}
+                            <img src="{{ url_for('static', filename=item_data.aviso.fotos[0].ruta_archivo.split('static/')[-1]) }}" alt="foto mascota" width="150" height="150">
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            {% endif %}
+    </table>
+</div>
+
+    <div class="main-container">
+        <form>
+            <h2>Que quiere hacer?</h2>
+
+            <a href="{{ url_for('agregar_aviso') }}" class="btn">Agregar aviso de adopción</a>
+            <a href="{{ url_for('listado') }}" class="btn">Ver listado de adopciones</a>
+
+            <a href="{{ url_for('estadisticas') }}"><button type="button">Estadisticas</button></a>
+        </form>
+    </div>
+</body>
+</html>
