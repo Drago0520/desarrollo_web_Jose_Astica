@@ -9,7 +9,6 @@
 <body>
     <div class="detalle-container">
         <h1>Detalle de Aviso: {{ aviso.nombre }}</h1>
-
         {# Mensajes Flash de validación #}
         {% with messages = get_flashed_messages() %}
             {% if messages %}

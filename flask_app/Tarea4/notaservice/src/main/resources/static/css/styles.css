@@ -1,0 +1,42 @@
+
+
+body { 
+    font-family: sans-serif; 
+    margin: 20px; 
+}
+
+h1 {
+    color: #333;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+}
+
+table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    margin-top: 20px;
+}
+
+th, td { 
+    border: 1px solid #ddd; 
+    padding: 10px; 
+    text-align: left; 
+}
+
+th { 
+    background-color: #007bff;
+    color: white;
+}
+
+.evaluar-btn { 
+    cursor: pointer; 
+    color: #28a745; /* Color verde para el botón */
+    text-decoration: underline; 
+    font-weight: bold;
+}
+
+.selector-nota {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}

@@ -49,3 +49,6 @@ class Comentario(db.Model):
     texto = db.Column(db.String(300), nullable=False)
     fecha = db.Column(db.DateTime, default=datetime.utcnow, nullable=False) 
     aviso_id = db.Column(db.Integer, db.ForeignKey("aviso_adopcion.id"), nullable=False)
+
+
+#Tarea4
