@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Evaluacion de Avisos</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+    <h1>Notas de Avisos de Adopcion</h1>
+
+    <table id="tabla-avisos">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Fecha Publicación</th>
+                <th>Sector</th>
+                <th>Cantidad Tipo Edad</th>
+                <th>Comuna</th>
+                <th>nota</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="aviso : ${avisos}">
+                <td th:text="${aviso.id}"></td>
+                <td th:text="${aviso.fechaPublicacion}"></td>
+                <td th:text="${aviso.sector}"></td>
+                <td th:text="${aviso.cantidadTipoEdad}"></td>
+                <td th:text="${aviso.comunaNombre}"></td>
+                
+                <td th:id="'nota-aviso-' + ${aviso.id}" th:text="${aviso.notaPromedio}"></td>
+                
+                <td>
+                    <a href="#" 
+                        class="evaluar-btn" 
+                        th:data-aviso-id="${aviso.id}">
+                        Evaluar
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <script th:src="@{/js/tarea4.js}"></script>
+
+</body>
+</html>

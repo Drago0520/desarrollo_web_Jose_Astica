@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Listado de Avisos de Adopcion</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/listado.css') }}">
+  <script src="{{ url_for('static', filename='js/listado.js') }}" defer></script>
+</head>
+<body>
+  <h1>Listado de Avisos de Adopcion</h1>
+
+  <table id="tabla-avisos">
+     <thead>
+      <tr>
+        <th>Fecha Publicacion</th>
+        <th>Comuna</th>
+        <th>Sector</th>
+        <th>Cantidad Tipo Edad</th>
+        <th>Nombre Contacto</th>
+      </tr>
+   </thead>
+     <tbody>
+       {% for item_data in avisos %}
+      <tr data-id="{{ item_data.aviso.id }}">
+ 
+       {# ACCESO CORREGIDO: Usamos item_data.aviso para acceder al objeto Aviso #}
+       <td>{{ item_data.aviso.fecha_ingreso.strftime('%Y-%m-%d') }}</td>
+ 
+       {# ACCESO CORREGIDO: Usamos el nombre de comuna precalculado #}
+      <td>{{ item_data.comuna_nombre }}</td>
+
+      <td>{{ item_data.aviso.sector or '-' }}</td>
+ 
+        <td>
+             {{ item_data.aviso.cantidad }} 
+             {{ item_data.aviso.tipo }} 
+           {{ item_data.aviso.edad }} 
+           {{ 'años' if item_data.aviso.unidad_medida == 'a' else 'meses' }}
+       </td>
+
+       <td>{{ item_data.aviso.nombre }}</td>
+      </tr>
+      {% endfor %}
+     </tbody>
+   </table>
+
+   <div class="pagination">
+     {# Aquí debes usar el objeto paginador que envías desde app.py #}
+      {% if paginador.has_prev %}
+     <a href="{{ url_for('listado', page=paginador.prev_num) }}">Anterior</a>
+     {% endif %}
+      {% if paginador.has_next %}
+       <a href="{{ url_for('listado', page=paginador.next_num) }}">Siguiente</a>
+    {% endif %}
+  </div>
+  
+   <a href="{{ url_for('index') }}" class="btn">Volver</a>
+
+
+</body>
+</html>

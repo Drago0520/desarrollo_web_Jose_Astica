@@ -1,0 +1,112 @@
+/* main.css */
+
+/* --- Estilos Generales --- */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    text-align: center; /* Centra el contenido principal */
+}
+
+h1 {
+    color: #007bff; /* Azul primario para el título principal */
+    margin-bottom: 5px;
+}
+
+h2 {
+    color: #555;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+    margin-top: 30px;
+}
+
+/* --- Contenedor Principal del Menú --- */
+.main-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Estilos de Botones y Enlaces --- */
+.main-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Espacio entre los botones */
+}
+
+button, .main-container a button {
+    background-color: #28a745; /* Verde para acciones positivas */
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    width: 100%; /* Botones de ancho completo */
+}
+
+button:hover, .main-container a button:hover {
+    background-color: #218838;
+}
+
+/* --- Estilos de la Tabla (Ultimos 5 Avisos) --- */
+.table-container {
+    max-width: 900px;
+    margin: 20px auto;
+    overflow-x: auto; /* Permite desplazamiento horizontal si la tabla es muy ancha */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9; /* Color de fondo para filas pares */
+}
+
+tr:hover {
+    background-color: #f1f1f1; /* Resaltar filas al pasar el ratón */
+}
+
+/* Imagen dentro de la tabla */
+td img {
+    display: block;
+    border-radius: 4px; /* Bordes ligeramente redondeados */
+    object-fit: cover;
+}
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: #2980b9;
+}

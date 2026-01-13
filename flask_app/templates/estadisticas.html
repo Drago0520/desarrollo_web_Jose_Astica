@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Estadisticas de Adopciones</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estadisticas.css') }}">
+    
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Estadisticas de Adopciones</h1>
+    </header>
+
+    <main class="container">
+        
+        <section>
+            <h2>1. Cantidad de Avisos Agregados por Dia</h2>
+            <div id="grafico-linea" style="height: 400px; min-width: 310px; margin: 0 auto"></div>
+        </section>
+
+        <section>
+            <h2>2. Total de Avisos por Tipo de Mascota</h2>
+            <div id="grafico-torta" style="height: 400px; min-width: 310px; margin: 0 auto"></div>
+        </section>
+
+        <section>
+            <h2>3. Avisos por Mes y Tipo (Perros vs. Gatos)</h2>
+            <div id="grafico-barras" style="height: 400px; min-width: 310px; margin: 0 auto"></div>
+        </section>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="{{ url_for('index') }}" class="boton-volver">Volver a la Portada</a>
+        </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/estadisticas.js') }}"></script> 
+</body>
+</html>

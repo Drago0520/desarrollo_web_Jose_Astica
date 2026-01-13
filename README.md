@@ -1,11 +1,8 @@
-# Tarea 1 - Desarrollo Web
-   
-   ## Descripción
-   Esta tarea incluye la implementación de una página de adopciones HTML con CSS.
-   
-   ## Decisiones tomadas
-   - Reutilice el codigo del auxiliar 3 para platillas de html y codigos de validaciones js.
-   - Tambien me guie en los codigos del auxiliar 2 para hacer el enlace de paginas.
-   - Tome como supuesto que el nivel de detalle en el estilo no era lo mas importante asi que solo me enfoque los requerimientos que se pedian.
-   - No hubo uso de comas y la ñ puesto que uso teclado ingles, las cosas y titulos que contienen estos es porque los saque de los datos que pedian en la misma tarea.
-   
+# Importante
+
+## Ejecucion codigo
+
+* La logica de Spring Boot para la Tarea 4 se encuentra en la carpeta **`Tarea 4`** dentro del proyecto principal de Flask.
+* **Para acceder a la funcionalidad de la Tarea 4, se deben ejecutar ambos servicios:**
+    1.  **Ejecutar la Aplicación Flask:** Esto sirve como *frontend* y punto de entrada. Una vez iniciada, el **`index.html`** contendra un boton **"Ir a Evaluaciones de Avisos"** que redirigira a la vista generada por Spring Boot.
+    2.  **Ejecutar el Servicio de Spring Boot NotaServiceApplication:** Debe estar corriendo en **`http://localhost:8080`**.
